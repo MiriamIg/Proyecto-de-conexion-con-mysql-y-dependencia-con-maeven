@@ -7,6 +7,7 @@ package org.unitec;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
 
 /**
  *
@@ -109,7 +110,17 @@ public class Facil extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-            ModeloConexion.conectarse("ruth", "");
+            //ModeloConexion.conectarse("root", "");
+            //Haremos una inserccion a la tabla facil 
+            //Paso 1.Crear un obejto de tipo conexion 
+                Connection con=ModeloConexion.conectarse("root", "");
+                PreparedStatement st=con.prepareStatement("insert into FACIL(nombre,edad) values (?,?)");
+                st.setString(1, textoNombre.getText());
+                st.setInt(2,Integer.parseInt(textoEdad.getText()));
+                st.execute();
+                etiquetaInformacion.setText("Registro Insertado");
+                
+            
         } catch (Exception ex) {
            System.out.println(ex.getMessage());
         }
